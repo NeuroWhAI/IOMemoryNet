@@ -19,6 +19,24 @@
     <Filter Include="IOMemoryNet\App">
       <UniqueIdentifier>{c1564ed3-3794-42da-8174-95168ce1a1d1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IOMemoryNet\MemoryLinker">
+      <UniqueIdentifier>{56273f77-c701-4ad0-a568-dd0d6acef006}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IOMemoryNet\MemoryCell">
+      <UniqueIdentifier>{8915d4fb-39ee-41c1-93c2-00118e5b5a89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IOMemoryNet\MemoryNet">
+      <UniqueIdentifier>{b71fc353-5d4c-4148-94f1-c56178e1c2f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IOMemoryNet\ConditionScore">
+      <UniqueIdentifier>{cb799969-f028-4f52-9cc5-4c9242ba7bc3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IOMemoryNet\ComPort">
+      <UniqueIdentifier>{81754f73-ef35-4b0e-89e4-a360808180a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IOMemoryNet\SignalSet">
+      <UniqueIdentifier>{9ea24375-93c0-4e58-ae2f-b97efad693cb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
