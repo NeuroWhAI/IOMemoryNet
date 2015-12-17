@@ -13,29 +13,65 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="IOMemoryNet">
-      <UniqueIdentifier>{0fdbf06d-a72a-4a1c-8002-c7185c801bb2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="IOMemoryNet\App">
+    <Filter Include="App">
       <UniqueIdentifier>{c1564ed3-3794-42da-8174-95168ce1a1d1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="IOMemoryNet\MemoryLinker">
-      <UniqueIdentifier>{56273f77-c701-4ad0-a568-dd0d6acef006}</UniqueIdentifier>
+    <Filter Include="Graphic">
+      <UniqueIdentifier>{33469795-b709-492b-9ac0-04d1680856c7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="IOMemoryNet\MemoryCell">
+    <Filter Include="Graphic\Graphic">
+      <UniqueIdentifier>{f9aae019-0e53-42b5-96dc-315117eebe26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphic\ConsoleGraphic">
+      <UniqueIdentifier>{e5833a74-3865-4540-bf6e-631a00fa240f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controller">
+      <UniqueIdentifier>{2cda98cc-3b96-40a7-adac-dfadc1ff049d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controller\Controller">
+      <UniqueIdentifier>{57f6c077-02c8-4a7d-a3fa-18da00975f05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controller\ConsoleController">
+      <UniqueIdentifier>{cc49bba8-b21d-4373-88fa-912f88c61513}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model">
+      <UniqueIdentifier>{608809a1-c518-4bcc-9257-ed9b32b5367d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model\MemoryNet">
+      <UniqueIdentifier>{0fdbf06d-a72a-4a1c-8002-c7185c801bb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model\MemoryNet\Cell">
+      <UniqueIdentifier>{7bfde190-e1f0-42d2-ba78-7da0b5bf9b44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model\MemoryNet\Cell\Cell">
+      <UniqueIdentifier>{585053e4-9c6d-4a72-b555-f3433f8e516d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model\MemoryNet\Cell\MemoryCell">
       <UniqueIdentifier>{8915d4fb-39ee-41c1-93c2-00118e5b5a89}</UniqueIdentifier>
     </Filter>
-    <Filter Include="IOMemoryNet\MemoryNet">
-      <UniqueIdentifier>{b71fc353-5d4c-4148-94f1-c56178e1c2f8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="IOMemoryNet\ConditionScore">
-      <UniqueIdentifier>{cb799969-f028-4f52-9cc5-4c9242ba7bc3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="IOMemoryNet\ComPort">
+    <Filter Include="Model\MemoryNet\ComPort">
       <UniqueIdentifier>{81754f73-ef35-4b0e-89e4-a360808180a3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="IOMemoryNet\SignalSet">
+    <Filter Include="Model\MemoryNet\ConditionScore">
+      <UniqueIdentifier>{cb799969-f028-4f52-9cc5-4c9242ba7bc3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model\MemoryNet\Linker">
+      <UniqueIdentifier>{fd97b771-1186-47fa-aed2-8cfe79d66c69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model\MemoryNet\Linker\MemoryLinker">
+      <UniqueIdentifier>{56273f77-c701-4ad0-a568-dd0d6acef006}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model\MemoryNet\Linker\Linker">
+      <UniqueIdentifier>{4ff4cf5b-a8c2-4a99-8de4-c6a4ea5e9eb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model\MemoryNet\MemoryNet">
+      <UniqueIdentifier>{b71fc353-5d4c-4148-94f1-c56178e1c2f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model\MemoryNet\SignalSet">
       <UniqueIdentifier>{9ea24375-93c0-4e58-ae2f-b97efad693cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model\MemoryNet\NetOperator">
+      <UniqueIdentifier>{d497fd9d-8aa2-4fb0-809c-063547cfda7d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -43,12 +79,42 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="App.cpp">
-      <Filter>IOMemoryNet\App</Filter>
+      <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="MemoryNet.cpp">
+      <Filter>Model\MemoryNet\MemoryNet</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphic.cpp">
+      <Filter>Graphic\Graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="ConsoleGraphic.cpp">
+      <Filter>Graphic\ConsoleGraphic</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>Controller\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="ConsoleController.cpp">
+      <Filter>Controller\ConsoleController</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h">
-      <Filter>IOMemoryNet\App</Filter>
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryNet.h">
+      <Filter>Model\MemoryNet\MemoryNet</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphic.h">
+      <Filter>Graphic\Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="ConsoleGraphic.h">
+      <Filter>Graphic\ConsoleGraphic</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>Controller\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="ConsoleController.h">
+      <Filter>Controller\ConsoleController</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

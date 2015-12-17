@@ -33,7 +33,7 @@ int main()
 
 	testApp.init();
 
-	while (true)
+	while (testApp.isOnRun())
 	{
 		::system("cls");
 

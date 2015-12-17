@@ -147,10 +147,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
+    <ClCompile Include="ConsoleController.cpp" />
+    <ClCompile Include="ConsoleGraphic.cpp" />
+    <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="Graphic.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MemoryNet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
+    <ClInclude Include="ConsoleController.h" />
+    <ClInclude Include="ConsoleGraphic.h" />
+    <ClInclude Include="Controller.h" />
+    <ClInclude Include="Graphic.h" />
+    <ClInclude Include="MemoryNet.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
