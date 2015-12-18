@@ -38,6 +38,7 @@ public:
 
 public:
 	int drawMemoryNet(const MemoryNet& net) override;
+	int drawSignalSet(const SignalSet& set) override;
 };
 
 #endif

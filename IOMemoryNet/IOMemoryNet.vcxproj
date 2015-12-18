@@ -147,20 +147,28 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
+    <ClCompile Include="Component.cpp" />
+    <ClCompile Include="ComPort.cpp" />
     <ClCompile Include="ConsoleController.cpp" />
     <ClCompile Include="ConsoleGraphic.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Graphic.cpp" />
+    <ClCompile Include="PulseSignalComponent.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MemoryNet.cpp" />
+    <ClCompile Include="SignalSet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
+    <ClInclude Include="Component.h" />
+    <ClInclude Include="ComPort.h" />
     <ClInclude Include="ConsoleController.h" />
     <ClInclude Include="ConsoleGraphic.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Graphic.h" />
+    <ClInclude Include="PulseSignalComponent.h" />
     <ClInclude Include="MemoryNet.h" />
+    <ClInclude Include="SignalSet.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

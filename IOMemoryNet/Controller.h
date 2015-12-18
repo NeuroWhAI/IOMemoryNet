@@ -37,7 +37,9 @@ public:
 
 
 public:
+	virtual bool onKeyDown(int key) = 0;
 	virtual bool onKeyDown_Quit() = 0;
+	virtual bool onKeyDown_Enter() = 0;
 };
 
 #endif

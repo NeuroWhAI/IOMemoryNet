@@ -1,4 +1,5 @@
 #include <iostream>
+#include <Windows.h>
 
 #include "App.h"
 
@@ -39,6 +40,8 @@ int main()
 
 		testApp.update();
 		testApp.render();
+
+		Sleep(16UL);
 	}
 
 	testApp.release();

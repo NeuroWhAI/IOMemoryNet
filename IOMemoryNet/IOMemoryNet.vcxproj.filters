@@ -73,6 +73,21 @@
     <Filter Include="Model\MemoryNet\NetOperator">
       <UniqueIdentifier>{d497fd9d-8aa2-4fb0-809c-063547cfda7d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Model\Component">
+      <UniqueIdentifier>{6c19d7ff-64ce-46ad-b9dc-3d4f6bd12fe6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model\Component\Component">
+      <UniqueIdentifier>{7f817d53-c6c7-4af0-89bc-bfde78950755}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model\Component\InputComponent">
+      <UniqueIdentifier>{4e5969f4-5fb0-42a7-8d3f-f847c5b8222a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model\Component\OutputComponent">
+      <UniqueIdentifier>{2bb66f19-572b-4208-8592-98993bfc9e13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model\Component\InputComponent\PulseSignalComponent">
+      <UniqueIdentifier>{fc4eac61-c9b9-4494-bd5f-74abfb5de359}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -96,6 +111,18 @@
     <ClCompile Include="ConsoleController.cpp">
       <Filter>Controller\ConsoleController</Filter>
     </ClCompile>
+    <ClCompile Include="SignalSet.cpp">
+      <Filter>Model\MemoryNet\SignalSet</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Model\Component\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ComPort.cpp">
+      <Filter>Model\MemoryNet\ComPort</Filter>
+    </ClCompile>
+    <ClCompile Include="PulseSignalComponent.cpp">
+      <Filter>Model\Component\InputComponent\PulseSignalComponent</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h">
@@ -115,6 +142,18 @@
     </ClInclude>
     <ClInclude Include="ConsoleController.h">
       <Filter>Controller\ConsoleController</Filter>
+    </ClInclude>
+    <ClInclude Include="SignalSet.h">
+      <Filter>Model\MemoryNet\SignalSet</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Model\Component\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ComPort.h">
+      <Filter>Model\MemoryNet\ComPort</Filter>
+    </ClInclude>
+    <ClInclude Include="PulseSignalComponent.h">
+      <Filter>Model\Component\InputComponent\PulseSignalComponent</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

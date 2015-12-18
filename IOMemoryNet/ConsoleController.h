@@ -46,7 +46,9 @@ public:
 
 
 public:
+	bool onKeyDown(int key) override;
 	bool onKeyDown_Quit() override;
+	bool onKeyDown_Enter() override;
 };
 
 #endif

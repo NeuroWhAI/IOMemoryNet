@@ -7,6 +7,10 @@
 #include "ConsoleController.h"
 
 #include "MemoryNet.h"
+#include "Component.h"
+#include "PulseSignalComponent.h"
+
+#include "ComPort.h"
 
 
 
@@ -54,7 +58,7 @@ App::~App()
 
 int App::init()
 {
-	m_pTestNet->init();
+	m_pTestNet->init(4, 3);
 
 
 	return 0;
@@ -73,12 +77,38 @@ int App::release()
 
 int App::update()
 {
+	if (m_pComponentList.size() > 0)
+	{
+		for (auto& item : m_pComponentList)
+		{
+			m_pTestNet->removeComPort(item->getComPort());
+		}
+		m_pComponentList.clear();
+	}
+
+
 	m_pController->update();
 
 	if (m_pController->onKeyDown_Quit()) m_bOnRun = false;
+	
+	for (size_t i = 0; i < m_pTestNet->getInputSize(); ++i)
+	{
+		if (m_pController->onKeyDown(i+'1'))
+		{
+			std::shared_ptr<Component> pNewCpt(new PulseSignalComponent());
+			pNewCpt->connect(m_pTestNet->assignComPortAtInput(i, 1));
+			m_pComponentList.emplace_back(pNewCpt);
+		}
+	}
 
 
 	m_pTestNet->update();
+
+
+	for (auto& item : m_pComponentList)
+	{
+		item->update();
+	}
 
 
 	return 0;
@@ -88,6 +118,9 @@ int App::update()
 int App::render()
 {
 	m_pGraphic->drawMemoryNet(*m_pTestNet);
+
+	m_pGraphic->drawSignalSet(*m_pTestNet->getInputSet());
+	m_pGraphic->drawSignalSet(*m_pTestNet->getOutputSet());
 
 
 	return 0;

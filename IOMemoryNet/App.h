@@ -8,11 +8,13 @@
 #define __APP_H__
 
 #include <memory>
+#include <vector>
 
 class Graphic;
 class Controller;
 
 class MemoryNet;
+class Component;
 
 
 
@@ -54,6 +56,7 @@ private:
 
 private:
 	std::shared_ptr<MemoryNet> m_pTestNet;
+	std::vector<std::shared_ptr<Component>> m_pComponentList;
 
 
 public:
