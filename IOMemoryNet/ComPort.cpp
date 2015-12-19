@@ -2,6 +2,8 @@
 
 #include "SignalSet.h"
 
+using SignalSetPtr = ComPort::SignalSetPtr;
+
 
 
 
@@ -44,7 +46,7 @@ ComPort::~ComPort()
 
 //////////////////////////////////////////////////////////////////
 
-int ComPort::connect(std::shared_ptr<SignalSet> pSignalList,
+int ComPort::connect(SignalSetPtr pSignalList,
 	size_t index, size_t count)
 {
 	m_pConnectedSignalList = pSignalList;
@@ -70,9 +72,9 @@ void ComPort::setSignal(size_t index, double signal)
 
 //---------------------------------------------------------------
 
-std::shared_ptr<SignalSet> ComPort::getSignalList() const
+SignalSetPtr ComPort::getSignalList() const
 {
-	std::shared_ptr<SignalSet> pSet(new SignalSet(m_assignedCount));
+	SignalSetPtr pSet(new SignalSet(m_assignedCount));
 	
 	for (size_t i = 0; i < m_assignedCount; ++i)
 	{

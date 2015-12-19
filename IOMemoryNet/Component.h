@@ -37,12 +37,16 @@ class ComPort;
 class Component
 {
 public:
+	typedef std::shared_ptr<ComPort> ComPortPtr;
+
+
+public:
 	Component();
 	virtual ~Component();
 
 
 protected:
-	std::shared_ptr<ComPort> m_pComPort;
+	ComPortPtr m_pComPort;
 
 
 public:
@@ -50,7 +54,7 @@ public:
 
 
 public:
-	int connect(std::shared_ptr<ComPort> pComPort);
+	int connect(ComPortPtr pComPort);
 	int disconnect();
 
 	bool onConnected() const;
@@ -62,7 +66,7 @@ public:
 
 
 public:
-	const std::shared_ptr<ComPort> getComPort() const;
+	const ComPortPtr getComPort() const;
 };
 
 #endif

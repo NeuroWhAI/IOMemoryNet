@@ -102,13 +102,13 @@ int App::update()
 	}
 
 
-	m_pTestNet->update();
-
-
 	for (auto& item : m_pComponentList)
 	{
 		item->update();
 	}
+
+
+	m_pTestNet->update();
 
 
 	return 0;

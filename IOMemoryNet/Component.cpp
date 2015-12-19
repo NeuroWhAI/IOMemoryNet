@@ -2,6 +2,8 @@
 
 #include "ComPort.h"
 
+using ComPortPtr = Component::ComPortPtr;
+
 
 
 
@@ -42,7 +44,7 @@ Component::~Component()
 
 //////////////////////////////////////////////////////////////////
 
-int Component::connect(std::shared_ptr<ComPort> pComPort)
+int Component::connect(ComPortPtr pComPort)
 {
 	disconnect();
 
@@ -102,7 +104,7 @@ void Component::setComSignal(size_t index, double signal)
 
 //////////////////////////////////////////////////////////////////
 
-const std::shared_ptr<ComPort> Component::getComPort() const
+const ComPortPtr Component::getComPort() const
 {
 	return m_pComPort;
 }

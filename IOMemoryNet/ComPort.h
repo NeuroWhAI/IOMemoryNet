@@ -37,17 +37,21 @@ class SignalSet;
 class ComPort
 {
 public:
+	typedef std::shared_ptr<SignalSet> SignalSetPtr;
+
+
+public:
 	ComPort();
 	virtual ~ComPort();
 
 
 protected:
-	std::shared_ptr<SignalSet> m_pConnectedSignalList;
+	SignalSetPtr m_pConnectedSignalList;
 	size_t m_connectedIndex, m_assignedCount;
 
 
 public:
-	int connect(std::shared_ptr<SignalSet> pSignalList,
+	int connect(SignalSetPtr pSignalList,
 		size_t index, size_t count);
 
 
@@ -55,7 +59,7 @@ public:
 	double getSignal(size_t index) const;
 	void setSignal(size_t index, double signal);
 
-	std::shared_ptr<SignalSet> getSignalList() const;
+	SignalSetPtr getSignalList() const;
 };
 
 #endif

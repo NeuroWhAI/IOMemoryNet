@@ -47,6 +47,11 @@ public:
 	int init(size_t signalCount);
 	int update();
 
+	int copyFrom(const SignalSet& other);
+	int copyRange(const SignalSet& src, size_t begin, size_t count);
+	bool isEqual(const SignalSet& other, size_t checkCount, double maxUnit) const;
+	void addSignals(const SignalSet& other, double weight = 1.0);
+
 
 public:
 	void setSignalList(const std::vector<double>& signalList);

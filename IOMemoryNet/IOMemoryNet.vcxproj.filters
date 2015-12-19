@@ -88,6 +88,18 @@
     <Filter Include="Model\Component\InputComponent\PulseSignalComponent">
       <UniqueIdentifier>{fc4eac61-c9b9-4494-bd5f-74abfb5de359}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Model\MemoryNet\LinkerPort">
+      <UniqueIdentifier>{4be9e42f-25f8-4eaf-9b18-3d4607b25e27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model\MemoryNet\NetOperator\NetOperator">
+      <UniqueIdentifier>{c3748fbb-f4ca-4c7b-bdda-e67cbda358fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model\MemoryNet\NetOperator\MemNetOperator">
+      <UniqueIdentifier>{bbc4dc0d-a1b7-4c48-b338-9840ac282e3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model\MemoryNet\LinkHelper">
+      <UniqueIdentifier>{e75f9cb5-a269-4ffc-9d9f-02ffcd6da20e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -123,6 +135,30 @@
     <ClCompile Include="PulseSignalComponent.cpp">
       <Filter>Model\Component\InputComponent\PulseSignalComponent</Filter>
     </ClCompile>
+    <ClCompile Include="Cell.cpp">
+      <Filter>Model\MemoryNet\Cell\Cell</Filter>
+    </ClCompile>
+    <ClCompile Include="Linker.cpp">
+      <Filter>Model\MemoryNet\Linker\Linker</Filter>
+    </ClCompile>
+    <ClCompile Include="LinkerPort.cpp">
+      <Filter>Model\MemoryNet\LinkerPort</Filter>
+    </ClCompile>
+    <ClCompile Include="NetOperator.cpp">
+      <Filter>Model\MemoryNet\NetOperator\NetOperator</Filter>
+    </ClCompile>
+    <ClCompile Include="MemoryCell.cpp">
+      <Filter>Model\MemoryNet\Cell\MemoryCell</Filter>
+    </ClCompile>
+    <ClCompile Include="MemoryLinker.cpp">
+      <Filter>Model\MemoryNet\Linker\MemoryLinker</Filter>
+    </ClCompile>
+    <ClCompile Include="MemNetOperator.cpp">
+      <Filter>Model\MemoryNet\NetOperator\MemNetOperator</Filter>
+    </ClCompile>
+    <ClCompile Include="LinkHelper.cpp">
+      <Filter>Model\MemoryNet\LinkHelper</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h">
@@ -155,5 +191,34 @@
     <ClInclude Include="PulseSignalComponent.h">
       <Filter>Model\Component\InputComponent\PulseSignalComponent</Filter>
     </ClInclude>
+    <ClInclude Include="Cell.h">
+      <Filter>Model\MemoryNet\Cell\Cell</Filter>
+    </ClInclude>
+    <ClInclude Include="Linker.h">
+      <Filter>Model\MemoryNet\Linker\Linker</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkerPort.h">
+      <Filter>Model\MemoryNet\LinkerPort</Filter>
+    </ClInclude>
+    <ClInclude Include="NetOperator.h">
+      <Filter>Model\MemoryNet\NetOperator\NetOperator</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryCell.h">
+      <Filter>Model\MemoryNet\Cell\MemoryCell</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryLinker.h">
+      <Filter>Model\MemoryNet\Linker\MemoryLinker</Filter>
+    </ClInclude>
+    <ClInclude Include="MemNetOperator.h">
+      <Filter>Model\MemoryNet\NetOperator\MemNetOperator</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkHelper.h">
+      <Filter>Model\MemoryNet\LinkHelper</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LinkHelper.inl">
+      <Filter>Model\MemoryNet\LinkHelper</Filter>
+    </None>
   </ItemGroup>
 </Project>
