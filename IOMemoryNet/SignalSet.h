@@ -56,6 +56,7 @@ public:
 public:
 	void setSignalList(const std::vector<double>& signalList);
 	void setSignalAt(size_t index, double signal);
+	void addSignalAt(size_t index, double deltaSignal);
 
 	const std::vector<double>& getSignalList() const;
 	double getSignalAt(size_t index) const;

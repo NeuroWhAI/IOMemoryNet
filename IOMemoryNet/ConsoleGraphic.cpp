@@ -9,6 +9,7 @@
 #include "MemoryCell.h"
 #include "MemoryLinker.h"
 #include "MemNetOperator.h"
+#include "ConditionScore.h"
 
 using namespace std;
 
@@ -36,12 +37,21 @@ using namespace std;
 
 
 
+int ConsoleGraphic::drawText(const char text[])
+{
+	cout << text << endl;
+
+
+	return 0;
+}
+
 
 int ConsoleGraphic::drawMemoryNet(const MemoryNet& net)
 {
 	cout << "[MemoryNet]" << endl;
 	cout << "InSize: " << net.getInputSize() << endl;
 	cout << "OutSize: " << net.getOutputSize() << endl;
+	cout << "PN: " << net.getConditionScore().getPN() << endl;
 	cout << endl;
 
 	cout << "(NetOperator)" << endl;
@@ -55,15 +65,17 @@ int ConsoleGraphic::drawMemoryNet(const MemoryNet& net)
 	auto& cellList = net.getMemoryCellList();
 	for (auto& cellPtr : cellList)
 	{
-		cout << "(Cell_" << cnt << ") : ";
+		/*cout << "(Cell_" << cnt << ") : ";
 		double potential = cellPtr->getPotential();
 		int width = static_cast<int>(potential*60.0);
 		if (width > 20) width = 20;
-		for (int w = 0; w < width; ++w)
+		else if (width < -20) width = -20;
+		for (int w = 0; w < abs(width); ++w)
 		{
-			cout << "|";
+			cout << ((width < 0) ? "-" : "|");
 		}
 		cout << endl;
+		cout << "PN: " << cellPtr->getConditionScore().getPN() << endl;
 
 		cout << "InSignalSet: [ ";
 		for (const auto& signal : cellPtr->getInSignalSet()->getSignalList())
@@ -77,10 +89,11 @@ int ConsoleGraphic::drawMemoryNet(const MemoryNet& net)
 		{
 			cout << signal << " ";
 		}
-		cout << "]" << endl;
+		cout << "]" << endl;*/
 
 		++cnt;
 	}
+	cout << "CellCount: " << cnt << endl;
 	cout << endl;
 
 	auto getCellIdx = [&cellList](std::shared_ptr<Cell> pCell) -> int {
@@ -100,7 +113,7 @@ int ConsoleGraphic::drawMemoryNet(const MemoryNet& net)
 	auto& linkerList = net.getMemoryLinkerList();
 	for (auto& linkerPtr : linkerList)
 	{
-		/*cout << "(Linker_" << cnt << ") <";
+		/*cout << "(Linker_" << cnt << ") : ";
 		cout << getCellIdx(linkerPtr->getInCell()) << "-(";
 		cout << linkerPtr->getWeight() << ")->";
 		cout << getCellIdx(linkerPtr->getOutCell()) << endl;*/

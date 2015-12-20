@@ -4,6 +4,8 @@
 
 #include "Cell.h"
 #include "Linker.h"
+#include "NetOption.h"
+#include "ConditionScore.h"
 
 #include "LinkerPort.h"
 
@@ -34,6 +36,8 @@
 
 
 NetOperator::NetOperator()
+	: m_pNetOption(nullptr)
+	, m_pCondition(nullptr)
 {
 
 }
@@ -48,6 +52,11 @@ NetOperator::~NetOperator()
 
 int NetOperator::update()
 {
+	const double maxLinkerWeight = m_pNetOption->getMaxLinkerWeight();
+	const double minLinkerWeight = m_pNetOption->getMinLinkerWeight();
+	const double hebbRate = m_pNetOption->getHebbRate();
+	const double pnScore = m_pCondition->getPN();
+
 	// 세대 교체
 	for (auto step : m_pNextStepList)
 	{
@@ -63,17 +72,24 @@ int NetOperator::update()
 
 
 			// Hebb 학습
-			pCell->getInLinkerPort()->foreach([&pCell](LinkerPtr pLinker) {
+			pCell->getInLinkerPort()->foreach([&pCell, &maxLinkerWeight, &minLinkerWeight, &hebbRate, &pnScore](LinkerPtr pLinker) {
 				
 				double weight = pLinker->getWeight();
 				CellPtr pInCell = pLinker->getInCell();
 
-				if (weight > 0.0
-					&&
-					pInCell && pInCell->isActivated())
+				if (pInCell && pInCell->isUnderPressure() == false)
 				{
-					double deltaW = (1.0 - weight) * (pInCell->getPotential() * weight) * 0.01;
-					pLinker->setWeight(weight + deltaW);
+					double deltaW = ((pInCell->getPotential() - Cell::POTENTIAL_REFRACTORY) * weight)
+						* hebbRate
+						* pnScore;
+					weight += deltaW;
+
+					if (weight > maxLinkerWeight)
+						weight = maxLinkerWeight;
+					else if (weight < minLinkerWeight)
+						weight = minLinkerWeight;
+
+					pLinker->setWeight(weight);
 				}
 			});
 		}
@@ -146,6 +162,25 @@ int NetOperator::update()
 	{
 		m_pHeadCellList.erase(pCell);
 	}
+
+
+	return 0;
+}
+
+////////////////////////////////////////////////////////////////////
+
+int NetOperator::setNetOption(NetOptionPtr pNetOption)
+{
+	m_pNetOption = pNetOption;
+
+
+	return 0;
+}
+
+
+int NetOperator::setConditionScore(ConditionScorePtr pScore)
+{
+	m_pCondition = pScore;
 
 
 	return 0;

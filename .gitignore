@@ -256,3 +256,6 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+
+# Log file
+*.csv

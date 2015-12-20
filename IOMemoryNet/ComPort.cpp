@@ -1,5 +1,7 @@
 #include "ComPort.h"
 
+#include <assert.h>
+
 #include "SignalSet.h"
 
 using SignalSetPtr = ComPort::SignalSetPtr;
@@ -53,6 +55,12 @@ int ComPort::connect(SignalSetPtr pSignalList,
 	m_connectedIndex = index;
 	m_assignedCount = count;
 
+#ifdef _DEBUG
+	assert(m_connectedIndex+m_assignedCount <= m_pConnectedSignalList->getSignalCount()
+		&&
+		"ComPort::connect");
+#endif
+
 
 	return 0;
 }
@@ -83,5 +91,11 @@ SignalSetPtr ComPort::getSignalList() const
 
 
 	return pSet;
+}
+
+
+size_t ComPort::getAssignedCount() const
+{
+	return m_assignedCount;
 }
 

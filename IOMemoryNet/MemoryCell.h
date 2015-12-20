@@ -6,6 +6,7 @@
 #include "Cell.h"
 
 class SignalSet;
+class ConditionScore;
 
 
 
@@ -34,6 +35,7 @@ class MemoryCell : public Cell
 {
 public:
 	typedef std::shared_ptr<SignalSet> SignalSetPtr;
+	typedef std::shared_ptr<ConditionScore> ConditionScorePtr;
 
 
 public:
@@ -43,6 +45,7 @@ public:
 
 protected:
 	SignalSetPtr m_pInSignalSet, m_pOutSignalSet;
+	ConditionScorePtr m_pConditionScore;
 
 
 protected:
@@ -63,6 +66,10 @@ public:
 
 	SignalSetPtr getInSignalSet();
 	SignalSetPtr getOutSignalSet();
+
+	int setConditionScore(const ConditionScore& score);
+	int addConditionScore(const ConditionScore& score, double weight);
+	const ConditionScore& getConditionScore() const;
 };
 
 #endif

@@ -7,6 +7,8 @@
 #include "MemoryCell.h"
 #include "MemoryLinker.h"
 #include "MemNetOperator.h"
+#include "NetOption.h"
+#include "ConditionScore.h"
 
 #include "LinkHelper.h"
 
@@ -15,6 +17,8 @@ using ComPortPtr = MemoryNet::ComPortPtr;
 using MemoryCellPtr = MemoryNet::MemoryCellPtr;
 using MemoryLinkerPtr = MemoryNet::MemoryLinkerPtr;
 using MemNetOperatorPtr = MemoryNet::MemNetOperatorPtr;
+using NetOptionPtr = MemoryNet::NetOptionPtr;
+using ConditionScorePtr = MemoryNet::ConditionScorePtr;
 
 
 
@@ -42,23 +46,34 @@ using MemNetOperatorPtr = MemoryNet::MemNetOperatorPtr;
 
 
 MemoryNet::MemoryNet()
-	: m_maxSignalUnit(0.5)
+	: m_pNetOption(new NetOption())
+	, m_pCondition(new ConditionScore())
+	, m_pNextCondition(new ConditionScore())
+	
 	, m_pInSignalSet(new SignalSet())
 	, m_pOutSignalSet(new SignalSet())
 
 	, m_pNetOperator(new MemNetOperator())
 {
-
+	m_pNetOperator->setNetOption(m_pNetOption);
+	m_pNetOperator->setConditionScore(m_pCondition);
 }
 
 
 MemoryNet::MemoryNet(size_t inSignalCount, size_t outSignalCount)
-	: m_maxSignalUnit(0.5)
+	: m_pNetOption(new NetOption())
+	, m_pCondition(new ConditionScore())
+	, m_pNextCondition(new ConditionScore())
+
 	, m_pInSignalSet(new SignalSet())
 	, m_pOutSignalSet(new SignalSet())
 
 	, m_pNetOperator(new MemNetOperator())
 {
+	m_pNetOperator->setNetOption(m_pNetOption);
+	m_pNetOperator->setConditionScore(m_pCondition);
+
+
 	this->init(inSignalCount, outSignalCount);
 }
 
@@ -92,6 +107,13 @@ int MemoryNet::release()
 
 int MemoryNet::update()
 {
+	// 값 세대 변경
+	*m_pCondition = *m_pNextCondition;
+
+	// 속도개선을 위해 미리 값을 얻어 둠.
+	const double maxSignalUnit = m_pNetOption->getMaxSignalUnit();
+	const double pnScore = m_pCondition->getPN();
+
 	// 출력을 입력으로 피드백
 	m_pInSignalSet->copyRange(*m_pOutSignalSet,
 		this->getInputSize(), m_pOutSignalSet->getSignalCount());
@@ -104,7 +126,7 @@ int MemoryNet::update()
 		SignalSetPtr pInSignalSet = pCell->getInSignalSet();
 
 		if (pInSignalSet->isEqual(*m_pInSignalSet, m_pInSignalSet->getSignalCount(),
-			m_maxSignalUnit))
+			maxSignalUnit))
 		{
 			bOnNewInputSet = false; // 이미 비슷한 기억이 있으므로 새로운 입력값이 아님
 
@@ -123,6 +145,9 @@ int MemoryNet::update()
 		// 새로운 기억 생성
 		MemoryCellPtr pNewCell(new MemoryCell());
 
+		// 상태점수 설정
+		pNewCell->setConditionScore(*m_pCondition);
+
 		// 출력단 설정
 		SignalSetPtr pOutSignalSet(new SignalSet());
 		pOutSignalSet->init(m_pOutSignalSet->getSignalCount());
@@ -131,9 +156,9 @@ int MemoryNet::update()
 		for (size_t i = 0; i < outSetSize; ++i)
 		{
 			// NOTE: 임시
-			// TODO: 현재 PN상태에 관련해서 값 계산
-			pOutSignalSet->setSignalAt(i,
-				(rand()%2) ? 0.3 : 0.0);
+			double outSignal = pnScore / (8.0 + 4.0 * static_cast<double>(rand())/RAND_MAX);
+			outSignal *= ((rand() % 2) ? 1.0 : -1.0);
+			pOutSignalSet->setSignalAt(i, outSignal);
 		}
 
 		pNewCell->setOutSignalSet(pOutSignalSet);
@@ -156,8 +181,25 @@ int MemoryNet::update()
 	// 진행자 갱신
 	m_pNetOperator->update();
 
+	// 상태점수 갱신
+	// NOTE: m_pCondition에 대입할 것 이므로 m_pCondition에대한 update는 불필요.
+	m_pNextCondition->update();
+
 
 	return 0;
+}
+
+//////////////////////////////////////////////////////////////////
+
+const ConditionScore& MemoryNet::getConditionScore() const
+{
+	return *m_pCondition;
+}
+
+
+void MemoryNet::addPN(double deltaPN)
+{
+	m_pNextCondition->addPN(deltaPN);
 }
 
 //////////////////////////////////////////////////////////////////
@@ -336,13 +378,15 @@ const MemNetOperatorPtr MemoryNet::getMemNetOperator() const
 
 int MemoryNet::whenActivateCell(Cell& cell)
 {
+	const double maxFirstLinkerWeight = m_pNetOption->getMaxFirstLinkerWeight();
+
+	// shared_ptr로 넘기긴 해야하는데 cell이 스마트포인터가 아니므로
+	// 소멸자 담당 함수를 아무것도 안하는 함수로 재정의함.
+	CellPtr tempCellPtr(&cell, [](Cell*) {});
+
 	// 활성화된 다른 Cell에 대해
 	m_pNetOperator->foreachHeadCell([&](CellPtr pOtherCell) {
-		if (pOtherCell.get() == &cell) return;
-
-		// shared_ptr로 넘기긴 해야하는데 cell이 스마트포인터가 아니므로
-		// 소멸자 담당 함수를 아무것도 안하는 함수로 재정의함.
-		CellPtr tempCellPtr(&cell, [](Cell*) {});
+		if (pOtherCell == tempCellPtr) return;
 
 		// 연결 시도
 		auto pNewLinker = LinkHelper<Cell, MemoryLinker>::connect(
@@ -352,9 +396,9 @@ int MemoryNet::whenActivateCell(Cell& cell)
 		if (pNewLinker)
 		{
 			// 연관도에 비례해 초기 연결 가중치를 계산하고
-			double weight = Cell::POTENTIAL_ACTIVE - pOtherCell->getPotential();
+			double weight = Cell::POTENTIAL_ACTION - pOtherCell->getPotential();
 			if (weight < 0.1) weight = 0.1;
-			pNewLinker->setWeight(0.1 / weight);
+			pNewLinker->setWeight(maxFirstLinkerWeight*0.1 / weight);
 
 			// 생성된 연결을 목록에 추가
 			this->addMemoryLinker(pNewLinker);
@@ -368,9 +412,34 @@ int MemoryNet::whenActivateCell(Cell& cell)
 
 int MemoryNet::whenActivateMemoryCell(MemoryCell& memoryCell)
 {
+	const double pnScore = m_pCondition->getPN();
+
 	// 출력에 더함
 	m_pOutSignalSet->addSignals(*memoryCell.getOutSignalSet(),
 		memoryCell.getPotential());
+
+	// Cell의 상태점수 갱신
+	memoryCell.addConditionScore(*m_pCondition, 0.001);
+
+	// 기억망의 상태점수 다음 세대에 적용
+	m_pNextCondition->addConditionScore(memoryCell.getConditionScore(), 0.1);
+
+	// Cell의 출력값 조정
+	/*auto outSignalSet = memoryCell.getOutSignalSet();
+	size_t outSetSize = outSignalSet->getSignalCount();
+	for (size_t i = 0; i < outSetSize; ++i)
+	{
+		double signal = outSignalSet->getSignalAt(i);
+
+		if (abs(signal) < std::numeric_limits<double>::epsilon())
+		{
+			outSignalSet->setSignalAt(i, 0.0);
+		}
+		else
+		{
+			outSignalSet->addSignalAt(i, signal * pnScore / 32.0);
+		}
+	}*/
 
 
 	return 0;

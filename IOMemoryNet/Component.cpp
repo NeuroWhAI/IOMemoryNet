@@ -1,5 +1,7 @@
 #include "Component.h"
 
+#include <assert.h>
+
 #include "ComPort.h"
 
 using ComPortPtr = Component::ComPortPtr;
@@ -30,8 +32,10 @@ using ComPortPtr = Component::ComPortPtr;
 
 
 
-Component::Component()
-	: m_pComPort(nullptr)
+Component::Component(size_t portSize)
+	: m_portSize(portSize)
+	
+	, m_pComPort(nullptr)
 {
 
 }
@@ -46,6 +50,13 @@ Component::~Component()
 
 int Component::connect(ComPortPtr pComPort)
 {
+#ifdef _DEBUG
+	assert(pComPort && pComPort->getAssignedCount() == m_portSize
+		&&
+		"Component::connect");
+#endif
+
+
 	disconnect();
 
 	m_pComPort = pComPort;

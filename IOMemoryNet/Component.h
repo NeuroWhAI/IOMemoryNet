@@ -41,11 +41,12 @@ public:
 
 
 public:
-	Component();
+	explicit Component(size_t portSize);
 	virtual ~Component();
 
 
 protected:
+	size_t m_portSize;
 	ComPortPtr m_pComPort;
 
 

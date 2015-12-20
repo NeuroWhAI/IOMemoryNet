@@ -1,8 +1,10 @@
 #include "MemoryCell.h"
 
 #include "SignalSet.h"
+#include "ConditionScore.h"
 
 using SignalSetPtr = MemoryCell::SignalSetPtr;
+using ConditionScorePtr = MemoryCell::ConditionScorePtr;
 
 
 
@@ -33,6 +35,7 @@ using SignalSetPtr = MemoryCell::SignalSetPtr;
 MemoryCell::MemoryCell()
 	: m_pInSignalSet(new SignalSet())
 	, m_pOutSignalSet(new SignalSet())
+	, m_pConditionScore(new ConditionScore())
 {
 
 }
@@ -109,5 +112,30 @@ SignalSetPtr MemoryCell::getInSignalSet()
 SignalSetPtr MemoryCell::getOutSignalSet()
 {
 	return m_pOutSignalSet;
+}
+
+//---------------------------------------------------------------
+
+int MemoryCell::setConditionScore(const ConditionScore& score)
+{
+	*m_pConditionScore = score;
+
+
+	return 0;
+}
+
+
+int MemoryCell::addConditionScore(const ConditionScore& score, double weight)
+{
+	m_pConditionScore->addConditionScore(score, weight);
+
+
+	return 0;
+}
+
+
+const ConditionScore& MemoryCell::getConditionScore() const
+{
+	return *m_pConditionScore;
 }
 

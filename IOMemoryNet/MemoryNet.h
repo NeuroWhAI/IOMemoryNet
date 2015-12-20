@@ -18,6 +18,8 @@ class Linker;
 class MemoryCell;
 class MemoryLinker;
 class MemNetOperator;
+class NetOption;
+class ConditionScore;
 
 
 
@@ -52,6 +54,8 @@ public:
 	typedef std::shared_ptr<MemoryCell> MemoryCellPtr;
 	typedef std::shared_ptr<MemoryLinker> MemoryLinkerPtr;
 	typedef std::shared_ptr<MemNetOperator> MemNetOperatorPtr;
+	typedef std::shared_ptr<NetOption> NetOptionPtr;
+	typedef std::shared_ptr<ConditionScore> ConditionScorePtr;
 
 
 public:
@@ -61,7 +65,12 @@ public:
 
 
 protected:
-	double m_maxSignalUnit; // 이 값이 작을수록 미세한 입력값의 변화로 새로운 기억을 생성함.
+	NetOptionPtr m_pNetOption;
+	ConditionScorePtr m_pCondition;
+	ConditionScorePtr m_pNextCondition;
+
+
+protected:
 	SignalSetPtr m_pInSignalSet, m_pOutSignalSet;
 
 
@@ -81,6 +90,11 @@ public:
 	int release();
 
 	int update();
+
+
+public:
+	const ConditionScore& getConditionScore() const;
+	void addPN(double deltaPN);
 
 
 public:

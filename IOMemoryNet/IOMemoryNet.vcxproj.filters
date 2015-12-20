@@ -100,6 +100,12 @@
     <Filter Include="Model\MemoryNet\LinkHelper">
       <UniqueIdentifier>{e75f9cb5-a269-4ffc-9d9f-02ffcd6da20e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Model\MemoryNet\NetOption">
+      <UniqueIdentifier>{1462b7c4-5427-4fc2-8dc3-5eefe2036f62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model\Component\OutputComponent\LampComponent">
+      <UniqueIdentifier>{d46dd0a2-d2aa-42b3-9874-045da0f71900}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -159,6 +165,15 @@
     <ClCompile Include="LinkHelper.cpp">
       <Filter>Model\MemoryNet\LinkHelper</Filter>
     </ClCompile>
+    <ClCompile Include="NetOption.cpp">
+      <Filter>Model\MemoryNet\NetOption</Filter>
+    </ClCompile>
+    <ClCompile Include="ConditionScore.cpp">
+      <Filter>Model\MemoryNet\ConditionScore</Filter>
+    </ClCompile>
+    <ClCompile Include="LampComponent.cpp">
+      <Filter>Model\Component\OutputComponent\LampComponent</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h">
@@ -214,6 +229,15 @@
     </ClInclude>
     <ClInclude Include="LinkHelper.h">
       <Filter>Model\MemoryNet\LinkHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="NetOption.h">
+      <Filter>Model\MemoryNet\NetOption</Filter>
+    </ClInclude>
+    <ClInclude Include="ConditionScore.h">
+      <Filter>Model\MemoryNet\ConditionScore</Filter>
+    </ClInclude>
+    <ClInclude Include="LampComponent.h">
+      <Filter>Model\Component\OutputComponent\LampComponent</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

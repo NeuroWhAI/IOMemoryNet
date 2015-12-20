@@ -34,8 +34,9 @@ using LinkerPortPtr = Cell::LinkerPortPtr;
 
 
 const double Cell::POTENTIAL_REST = 0.0;
-const double Cell::POTENTIAL_HOLD = 0.1;
-const double Cell::POTENTIAL_ACTIVE = 1.0;
+const double Cell::POTENTIAL_HOLD = 0.2;
+const double Cell::POTENTIAL_ACTION = 1.0;
+const double Cell::POTENTIAL_REFRACTORY = -0.4;
 
 ////////////////////////////////////////////////////////////////////
 
@@ -79,17 +80,32 @@ int Cell::update()
 
 int Cell::seq_toActive()
 {
-	double sub = POTENTIAL_ACTIVE - m_potential;
+	double sub = POTENTIAL_ACTION - m_potential;
 
 	if (sub > 0.0001)
 	{
-		m_potential += 1.0 / sub;
+		m_potential += 0.8 / sub;
 	}
 
-	if (m_potential >= POTENTIAL_ACTIVE - 0.0001)
+	if (m_potential >= POTENTIAL_ACTION - 0.0001)
 	{
-		m_potential = POTENTIAL_ACTIVE;
-		currFunc = &Cell::seq_toRestByDown;
+		m_potential = POTENTIAL_ACTION;
+		currFunc = &Cell::seq_toRefractory;
+	}
+
+
+	return 0;
+}
+
+
+int Cell::seq_toRefractory()
+{
+	m_potential += (POTENTIAL_REST - m_potential) / 2.0;
+
+	if (m_potential < POTENTIAL_HOLD)
+	{
+		m_potential = POTENTIAL_REFRACTORY;
+		currFunc = &Cell::seq_toRestByUp;
 	}
 
 
@@ -190,6 +206,12 @@ void Cell::checkUpdateNecessity()
 bool Cell::isOnUpdate() const
 {
 	return (currFunc != nullptr);
+}
+
+
+bool Cell::isUnderPressure() const
+{
+	return (currFunc == &Cell::seq_toRestByDown);
 }
 
 ////////////////////////////////////////////////////////////////////

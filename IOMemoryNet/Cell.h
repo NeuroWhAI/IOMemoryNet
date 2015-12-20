@@ -40,7 +40,8 @@ public:
 public:
 	static const double POTENTIAL_REST;
 	static const double POTENTIAL_HOLD;
-	static const double POTENTIAL_ACTIVE;
+	static const double POTENTIAL_ACTION;
+	static const double POTENTIAL_REFRACTORY;
 
 
 public:
@@ -65,6 +66,7 @@ public:
 	virtual int update();
 
 	int seq_toActive();
+	int seq_toRefractory();
 	int seq_toRestByDown();
 	int seq_toRestByUp();
 
@@ -75,10 +77,15 @@ public:
 	void setPotential(double potential);
 	void addPotential(double deltaPotential);
 
+	// * 전위가 역치 이상인가?
 	bool isActivated() const;
+	// * 현재 전위를 보고 어떤 시퀀스로 접어들지 설정.
 	void checkUpdateNecessity();
+	// * 시퀀스가 진행중인가?
 	bool isOnUpdate() const;
-
+	// * 활성화 상태가 아니면서 입력값이 계속해서 들어오고 있는가?
+	bool isUnderPressure() const;
+	
 
 public:
 	LinkerPortPtr getInLinkerPort();

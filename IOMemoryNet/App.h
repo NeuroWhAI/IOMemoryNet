@@ -9,6 +9,7 @@
 
 #include <memory>
 #include <vector>
+#include <fstream>
 
 class Graphic;
 class Controller;
@@ -47,6 +48,11 @@ public:
 
 private:
 	bool m_bOnRun;
+	
+	
+private:
+	std::ofstream m_fw;
+	bool m_bOnLogging;
 
 
 private:

@@ -27,6 +27,7 @@
 
 
 PulseSignalComponent::PulseSignalComponent()
+	: Component(1)
 {
 
 }

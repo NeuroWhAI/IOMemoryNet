@@ -8,6 +8,8 @@
 
 class Cell;
 class Linker;
+class NetOption;
+class ConditionScore;
 
 
 
@@ -37,11 +39,18 @@ class NetOperator
 public:
 	typedef std::shared_ptr<Cell> CellPtr;
 	typedef std::shared_ptr<Linker> LinkerPtr;
+	typedef std::shared_ptr<NetOption> NetOptionPtr;
+	typedef std::shared_ptr<ConditionScore> ConditionScorePtr;
 
 
 public:
 	NetOperator();
 	virtual ~NetOperator();
+
+
+protected:
+	NetOptionPtr m_pNetOption;
+	ConditionScorePtr m_pCondition;
 
 
 protected:
@@ -52,6 +61,11 @@ protected:
 
 public:
 	virtual int update();
+
+
+public:
+	int setNetOption(NetOptionPtr pNetOption);
+	int setConditionScore(ConditionScorePtr pScore);
 
 
 public:

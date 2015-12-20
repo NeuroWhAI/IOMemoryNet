@@ -150,10 +150,12 @@
     <ClCompile Include="Cell.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ComPort.cpp" />
+    <ClCompile Include="ConditionScore.cpp" />
     <ClCompile Include="ConsoleController.cpp" />
     <ClCompile Include="ConsoleGraphic.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Graphic.cpp" />
+    <ClCompile Include="LampComponent.cpp" />
     <ClCompile Include="Linker.cpp" />
     <ClCompile Include="LinkerPort.cpp" />
     <ClCompile Include="LinkHelper.cpp" />
@@ -161,6 +163,7 @@
     <ClCompile Include="MemoryCell.cpp" />
     <ClCompile Include="MemoryLinker.cpp" />
     <ClCompile Include="NetOperator.cpp" />
+    <ClCompile Include="NetOption.cpp" />
     <ClCompile Include="PulseSignalComponent.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MemoryNet.cpp" />
@@ -171,10 +174,12 @@
     <ClInclude Include="Cell.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComPort.h" />
+    <ClInclude Include="ConditionScore.h" />
     <ClInclude Include="ConsoleController.h" />
     <ClInclude Include="ConsoleGraphic.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Graphic.h" />
+    <ClInclude Include="LampComponent.h" />
     <ClInclude Include="Linker.h" />
     <ClInclude Include="LinkerPort.h" />
     <ClInclude Include="LinkHelper.h" />
@@ -182,6 +187,7 @@
     <ClInclude Include="MemoryCell.h" />
     <ClInclude Include="MemoryLinker.h" />
     <ClInclude Include="NetOperator.h" />
+    <ClInclude Include="NetOption.h" />
     <ClInclude Include="PulseSignalComponent.h" />
     <ClInclude Include="MemoryNet.h" />
     <ClInclude Include="SignalSet.h" />

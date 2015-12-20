@@ -60,6 +60,8 @@ public:
 	void setSignal(size_t index, double signal);
 
 	SignalSetPtr getSignalList() const;
+	// * 점유한 신호의 수
+	size_t getAssignedCount() const;
 };
 
 #endif

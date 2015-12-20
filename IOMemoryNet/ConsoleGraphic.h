@@ -37,6 +37,7 @@ public:
 
 
 public:
+	int drawText(const char text[]) override;
 	int drawMemoryNet(const MemoryNet& net) override;
 	int drawSignalSet(const SignalSet& set) override;
 };

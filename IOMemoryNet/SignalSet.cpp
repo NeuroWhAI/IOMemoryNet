@@ -138,7 +138,7 @@ void SignalSet::addSignals(const SignalSet& other, double weight)
 	const size_t listCnt = m_signalList.size();
 	for (size_t i = 0; i < listCnt; ++i)
 	{
-		m_signalList[i] += other.m_signalList[i] * weight;
+		m_signalList[i] += (other.m_signalList[i] - m_signalList[i]) * weight;
 	}
 }
 
@@ -156,6 +156,16 @@ void SignalSet::setSignalAt(size_t index, double signal)
 	m_signalList.at(index) = signal;
 #else
 	m_signalList[index] = signal;
+#endif
+}
+
+
+void SignalSet::addSignalAt(size_t index, double deltaSignal)
+{
+#ifdef _DEBUG
+	m_signalList.at(index) += deltaSignal;
+#else
+	m_signalList[index] += deltaSignal;
 #endif
 }
 
