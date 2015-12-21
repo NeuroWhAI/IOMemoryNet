@@ -422,7 +422,7 @@ int MemoryNet::whenActivateMemoryCell(MemoryCell& memoryCell)
 	memoryCell.addConditionScore(*m_pCondition, 0.001);
 
 	// 기억망의 상태점수 다음 세대에 적용
-	m_pNextCondition->addConditionScore(memoryCell.getConditionScore(), 0.1);
+	m_pNextCondition->addConditionScore(memoryCell.getConditionScore(), 0.01);
 
 	// Cell의 출력값 조정
 	/*auto outSignalSet = memoryCell.getOutSignalSet();

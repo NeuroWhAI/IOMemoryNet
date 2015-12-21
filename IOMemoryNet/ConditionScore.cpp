@@ -51,8 +51,9 @@ int ConditionScore::update()
 	}
 	else
 	{
-		m_pn -= m_pn / 4.0;
+		m_pn -= m_pn / 2.0;
 	}
+	m_pn = 0.0;
 
 
 	return 0;

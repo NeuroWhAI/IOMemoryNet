@@ -13,6 +13,7 @@
 
 #include "ComPort.h"
 #include "MemoryCell.h"
+#include "SignalSet.h"
 
 
 
@@ -68,10 +69,13 @@ int App::init()
 	m_pTestNet->init(4, 3);
 
 	// Lamp 생성 후 출력단의 0번에 연결
-	std::shared_ptr<Component> pNewCpt(new LampComponent());
-	auto pCom = m_pTestNet->assignComPortAtOutput(0, 1);
-	pNewCpt->connect(pCom);
-	m_pComponentList.emplace_back(pNewCpt);
+	for (int i = 0; i < 3; ++i)
+	{
+		std::shared_ptr<Component> pNewCpt(new LampComponent());
+		auto pCom = m_pTestNet->assignComPortAtOutput(i, 1);
+		pNewCpt->connect(pCom);
+		m_pComponentList.emplace_back(pNewCpt);
+	}
 
 
 	return 0;
@@ -112,11 +116,22 @@ int App::update()
 		pCpt->update();
 	}
 
-	LampComponent* pLamp = dynamic_cast<LampComponent*>(m_pComponentList[0].get());
-	if (pLamp != nullptr && pLamp->getLight())
-		m_pTestNet->addPN(10.0);
+	int lightCnt = 0;
+	for (int i = 0; i < 3; ++i)
+	{
+		LampComponent* pLamp = dynamic_cast<LampComponent*>(m_pComponentList[i].get());
+		if (pLamp != nullptr && pLamp->getLight())
+			if(i != 1)
+				++lightCnt;
+	}
+	if (lightCnt == 2)
+	{
+		m_pTestNet->addPN(100.0);
+	}
 	else
-		m_pTestNet->addPN(-10.0);
+	{
+		m_pTestNet->addPN(-100.0);
+	}
 
 
 	m_pTestNet->update();
@@ -139,14 +154,22 @@ int App::update()
 
 	if (m_bOnLogging  &&  m_fw.is_open())
 	{
-		const auto& cellList = m_pTestNet->getMemoryCellList();
+		/*const auto& cellList = m_pTestNet->getMemoryCellList();
 
 		for (auto& pCell : cellList)
 		{
 			m_fw << pCell->getPotential() << ",";
 		}
 
-		m_fw << "0.0" << std::endl;
+		m_fw << "0.0" << std::endl;*/
+		
+		auto pOutSet = m_pTestNet->getOutputSet();
+
+		for (auto signal : pOutSet->getSignalList())
+		{
+			m_fw << signal << ",";
+		}
+		m_fw << std::endl;
 	}
 
 
@@ -161,11 +184,15 @@ int App::render()
 	m_pGraphic->drawSignalSet(*m_pTestNet->getInputSet());
 	m_pGraphic->drawSignalSet(*m_pTestNet->getOutputSet());
 
-	LampComponent* pLamp = dynamic_cast<LampComponent*>(m_pComponentList[0].get());
-	if (pLamp != nullptr && pLamp->getLight())
-		m_pGraphic->drawText("* Lamp: ◆\n");
-	else
-		m_pGraphic->drawText("* Lamp: ◇\n");
+	for (int i = 0; i < 3; ++i)
+	{
+		LampComponent* pLamp = dynamic_cast<LampComponent*>(m_pComponentList[i].get());
+		if (pLamp != nullptr && pLamp->getLight())
+			m_pGraphic->drawText("* Lamp: ◆");
+		else
+			m_pGraphic->drawText("* Lamp: ◇");
+	}
+	m_pGraphic->drawText("");
 
 	if (m_bOnLogging)
 	{
